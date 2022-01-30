@@ -1,0 +1,39 @@
+.vehicle {
+  border-collapse: collapse;
+  border-color: #aaa;
+  border-spacing: 0;
+}
+.vehicle td {
+  background-color: #fff;
+  border-color: #aaa;
+  border-style: solid;
+  border-width: 1px;
+  color: #4a4a4a;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.vehicle th {
+  background-color: #fe885f;
+  border-color: #aaa;
+  border-style: solid;
+  border-width: 1px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.vehicle .tg-0lax {
+  text-align: left;
+  vertical-align: top;
+}
+.vehicle .tg-dg7a {
+  background-color: #fafafa;
+  text-align: left;
+  vertical-align: top;
+}
