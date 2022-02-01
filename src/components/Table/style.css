@@ -2,6 +2,8 @@
   border-collapse: collapse;
   border-color: #aaa;
   border-spacing: 0;
+  min-width: 500px;
+  max-width: 500px;
 }
 .vehicle td {
   background-color: #fff;
@@ -14,6 +16,8 @@
   overflow: hidden;
   padding: 10px 5px;
   word-break: normal;
+  display: table-cell;
+  width: 2%;
 }
 .vehicle th {
   background-color: #fe885f;
@@ -36,4 +40,22 @@
   background-color: #fafafa;
   text-align: left;
   vertical-align: top;
+}
+
+.pagination-buttons {
+  margin-top: 8px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-button {
+  background-color: #fe885f;
+  border-radius: 4px;
+  height: 25px;
+  width: 25px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  margin-left: 4px;
 }
