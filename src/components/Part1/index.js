@@ -1,7 +1,7 @@
 import {
   getResource,
   resolvePromises,
-  getAllResourceData
+  getAllResourceData,
 } from '../../helpers/api';
 
 export const getVehicleWithHighestPopulation = async () => {
@@ -46,18 +46,25 @@ export const getVehicleWithHighestPopulation = async () => {
       return { vehicle: vehicleKey, population };
     }
   );
-  const sortedVehicles = vehiclesWithPopulation.sort(
-    (a, b) => a.population > b.population
+
+  const sortedVehicles = vehiclesWithPopulation
+    .sort((a, b) => b.population - a.population)
+    .filter((a) => a.population > 0);
+
+  const topVehicles = await resolvePromises(
+    sortedVehicles.map((v) => getResource(v.vehicle)),
+    true
   );
 
-  const topVehicle = await getResource(sortedVehicles[0].vehicle);
-  const vehiclePilotsDetails = peopleWithVehicle
-    .filter((p) => p.vehicles.includes(topVehicle.url))
-    .map((p) => p.name);
+  const top = topVehicles.map(({ name, url }) => {
+    return {
+      name,
+      pilots: peopleWithVehicle
+        .filter((p) => p.vehicles.includes(url))
+        .map((p) => p.name),
+      planets: vehiclePlanetsPopulationDetails[url],
+    };
+  });
 
-  return {
-    Name: topVehicle.name,
-    planets: vehiclePlanetsPopulationDetails[topVehicle.url],
-    pilots: vehiclePilotsDetails
-  };
+  return top;
 };
