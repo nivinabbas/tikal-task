@@ -1,29 +1,54 @@
+import { useState } from 'react';
 import './style.css';
 
-const Table = ({ dataObject }) => {
+const Table = ({ data = [], pageSize = 2 }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const pages = Math.ceil(data.length / pageSize);
   return (
-    <table className="vehicle">
-      <thead>
-        <tr>
-          <th className="tg-0lax">Fields</th>
-          <th className="tg-0lax">Values</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.keys(dataObject).map((key, index) => {
-          return (
-            <tr key={index}>
-              <td className={index % 2 === 0 ? 'tg-dg7a' : 'tg-0lax'}>{key}</td>
-              <td className={index % 2 === 0 ? 'tg-dg7a' : 'tg-0lax'}>
-                {typeof dataObject[key] === 'string'
-                  ? dataObject[key]
-                  : JSON.stringify(dataObject[key])}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <div>
+      <table className="vehicle">
+        <thead>
+          <tr>
+            <th className="tg-0lax">Name</th>
+            <th className="tg-0lax">Planets</th>
+            <th className="tg-0lax">pilots</th>
+          </tr>
+        </thead>
+        <tbody width="100%">
+          {data
+            .slice(currentPage * pageSize, currentPage * pageSize + pageSize)
+            .map(({ name, planets, pilots }, index) => {
+              return (
+                <tr key={Math.random()}>
+                  <td className={index % 2 === 0 ? 'tg-dg7a' : 'tg-0lax'}>
+                    {name}
+                  </td>
+                  <td className={index % 2 === 0 ? 'tg-dg7a' : 'tg-0lax'}>
+                    {JSON.stringify(planets)}
+                  </td>
+                  <td className={index % 2 === 0 ? 'tg-dg7a' : 'tg-0lax'}>
+                    {JSON.stringify(pilots)}
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+      <div className="pagination-buttons">
+        {Array(pages)
+          .fill(0)
+          .map((page, index) => {
+            return (
+              <button
+                onClick={() => setCurrentPage(index)}
+                className="page-button"
+              >
+                {index + 1}
+              </button>
+            );
+          })}
+      </div>
+    </div>
   );
 };
 
