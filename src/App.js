@@ -10,13 +10,13 @@ import { setCache, getDataFromCache, clearCache } from './helpers/cache';
 const planetsNames = ['Tatooine', 'Alderaan', 'Naboo', 'Bespin', 'Endor'];
 
 function App() {
-  const [vehicle, setVehicle] = useState({});
+  const [vehicles, setVehicles] = useState({});
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getAPIData = async () => {
     const topVehicle = await getVehicleWithHighestPopulation();
-    setVehicle(topVehicle);
+    setVehicles(topVehicle);
 
     const planetsChartData = await normalizedChartData('planets', planetsNames);
     setChartData(planetsChartData);
@@ -30,7 +30,7 @@ function App() {
     if (cacheData) {
       const { planetsChartData, topVehicle } = cacheData;
       setChartData(planetsChartData);
-      setVehicle(topVehicle);
+      setVehicles(topVehicle);
       setLoading(false);
     } else getAPIData();
 
@@ -50,10 +50,10 @@ function App() {
       ) : (
         <div>
           <button className="button-data" onClick={getNewData}>
-            Get New Data
+            Reload Data
           </button>
           <div className="content">
-            <Table dataObject={vehicle} />
+            <Table data={vehicles} />
           </div>
           <BarChart data={chartData} />
         </div>
